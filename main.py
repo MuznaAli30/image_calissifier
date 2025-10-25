@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 import streamlit as st
 from tensorflow.keras.applications.mobilenet_v2 import (
@@ -8,13 +7,14 @@ from tensorflow.keras.applications.mobilenet_v2 import (
 )
 from PIL import Image
 
+
 def load_model():
     model = MobileNetV2(weights="imagenet") #leraned values
     return model
 
 def preprocess_image(image):
+    image = image.resize((224, 224))
     img = np.array(image)
-    img = cv2.resize(img, (224, 224))
     img = preprocess_input(img)
     img = np.expand_dims(img, axis=0)
     return img
